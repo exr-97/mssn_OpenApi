@@ -1,0 +1,6 @@
+#Update this config file whenever new service is added
+filepaths:
+  openAPI:
+    reference/service/amion_Interface/amionInterface.yaml
+  bundledOpenAPI:
+    dist/amionInterface.yaml
