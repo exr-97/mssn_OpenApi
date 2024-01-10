@@ -9,7 +9,8 @@ on:
 jobs:
   Lint_OpenAPI_Files:
     name: Lint OpenAPI Files  
-    runs-on: [self-hosted, linux, java]
+    # runs-on: [self-hosted, linux, java]
+    runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it 
       - uses: actions/checkout@v3
@@ -29,7 +30,8 @@ jobs:
 
   Publish_Documents:
    name: Publish Documents
-   runs-on: [self-hosted, linux, java]
+   # runs-on: [self-hosted, linux, java]
+   runs-on: ubuntu-latest
    steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
      - uses: actions/checkout@v3
