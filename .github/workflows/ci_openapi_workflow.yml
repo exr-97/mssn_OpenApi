@@ -4,6 +4,7 @@ name: CI for OpenApi
 on:
   pull_request:
     branches: openApi-setup
+#     branches: [ main ]
   workflow_dispatch:
   
 jobs:
@@ -42,6 +43,7 @@ jobs:
        
      - name: Read OpenAPI File Paths  
        id: read_openAPI_file_paths
+
        run: |
          ls
          echo "files=$(./yq e '.filepaths.openAPI' $GITHUB_WORKSPACE/reference/filepaths.yaml| xargs)" >> $GITHUB_OUTPUT
@@ -76,7 +78,7 @@ jobs:
        uses: actions/upload-artifact@v3
        with:
          name: Combined_OpenApi_File
-         path: dist/openapi.yaml
+         path: openapi.yaml
        
      - name: Generate HTML Documentation
        run: redoc-cli bundle $GITHUB_WORKSPACE/openapi.yaml -o out/openapi.html
