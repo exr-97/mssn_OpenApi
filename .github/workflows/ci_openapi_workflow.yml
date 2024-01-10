@@ -42,10 +42,14 @@ jobs:
        
      - name: Read OpenAPI File Paths  
        id: read_openAPI_file_paths
-       run: echo "files=$(./yq e '.filepaths.openAPI' $GITHUB_WORKSPACE/filepaths.yaml| xargs)" >> $GITHUB_OUTPUT
+       run: |
+         ls
+         echo "files=$(./yq e '.filepaths.openAPI' $GITHUB_WORKSPACE/filepaths.yaml| xargs)" >> $GITHUB_OUTPUT
        
      - name: Set OpenAPI File Paths 
-       run: echo "OpenAPI_File_Paths=${{ steps.read_openAPI_file_paths.outputs.files }}" >> $GITHUB_ENV
+       run: |
+        ls
+        echo "OpenAPI_File_Paths=${{ steps.read_openAPI_file_paths.outputs.files }}" >> $GITHUB_ENV
        
      - name: Read Bundled OpenAPI File Paths
        id: read_bundled_openAPI_file_paths
