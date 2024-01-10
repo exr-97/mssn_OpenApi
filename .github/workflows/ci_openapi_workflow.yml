@@ -44,7 +44,7 @@ jobs:
        id: read_openAPI_file_paths
        run: |
          ls
-         echo "files=$(./yq e '.filepaths.openAPI' $GITHUB_WORKSPACE/filepaths.yaml| xargs)" >> $GITHUB_OUTPUT
+         echo "files=$(./yq e '.filepaths.openAPI' $GITHUB_WORKSPACE/reference/filepaths.yaml| xargs)" >> $GITHUB_OUTPUT
        
      - name: Set OpenAPI File Paths 
        run: |
