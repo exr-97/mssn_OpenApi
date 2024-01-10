@@ -53,7 +53,7 @@ jobs:
        
      - name: Read Bundled OpenAPI File Paths
        id: read_bundled_openAPI_file_paths
-       run: echo "files=$(./yq e '.filepaths.bundledOpenAPI' $GITHUB_WORKSPACE/filepaths.yaml| xargs)" >> $GITHUB_OUTPUT
+       run: echo "files=$(./yq e '.filepaths.bundledOpenAPI' $GITHUB_WORKSPACE/reference/filepaths.yaml| xargs)" >> $GITHUB_OUTPUT
        
      - name: Set Bundled OpenAPI File Paths  
        run: echo "Bundled_OpenAPI_File_Paths=${{ steps.read_bundled_openAPI_file_paths.outputs.files }}" >> $GITHUB_ENV
