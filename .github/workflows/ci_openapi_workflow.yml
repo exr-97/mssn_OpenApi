@@ -1,0 +1,106 @@
+# This is a ci workflow for openapi
+name: CI for OpenApi
+
+on:
+  pull_request:
+    branches: openApi-setup
+  workflow_dispatch:
+  
+jobs:
+  Lint_OpenAPI_Files:
+    name: Lint OpenAPI Files  
+    # runs-on: [self-hosted, linux, java]
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it 
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Spectral linter
+        id: install_spectral
+        run: npm install -g @stoplight/spectral-cli
+        
+      - name: Validate OpenAPI yaml files in the repo
+        id: run_spectral
+        run: spectral lint ./reference/**/*.{yaml,yml} --ruleset spectral.yaml
+
+
+  Publish_Documents:
+   name: Publish Documents
+   # runs-on: [self-hosted, linux, java]
+   runs-on: ubuntu-latest
+   steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+     - uses: actions/checkout@v3
+       
+     - name: Install yq Processor
+       run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 ./yq
+       
+     - name: Read OpenAPI File Paths  
+       id: read_openAPI_file_paths
+       run: echo "files=$(./yq e '.filepaths.openAPI' $GITHUB_WORKSPACE/filepaths.yaml| xargs)" >> $GITHUB_OUTPUT
+       
+     - name: Set OpenAPI File Paths 
+       run: echo "OpenAPI_File_Paths=${{ steps.read_openAPI_file_paths.outputs.files }}" >> $GITHUB_ENV
+       
+     - name: Read Bundled OpenAPI File Paths
+       id: read_bundled_openAPI_file_paths
+       run: echo "files=$(./yq e '.filepaths.bundledOpenAPI' $GITHUB_WORKSPACE/filepaths.yaml| xargs)" >> $GITHUB_OUTPUT
+       
+     - name: Set Bundled OpenAPI File Paths  
+       run: echo "Bundled_OpenAPI_File_Paths=${{ steps.read_bundled_openAPI_file_paths.outputs.files }}" >> $GITHUB_ENV
+        
+     - name: Setup Node.js environment
+       uses: actions/setup-node@v3
+       with:
+         node-version: '16'
+     
+     - name: Install redoc-cli
+       run: npm install -g redoc-cli
+   
+     - name: Bundle OpenApi Files     
+       run: npx @redocly/openapi-cli bundle --output dist --ext yaml ${{env.OpenAPI_File_Paths}}
+       
+     - name: Join OpenApi Files
+       run: npx @redocly/openapi-cli join ${{env.Bundled_OpenAPI_File_Paths}}
+       
+     - name: Upload Combined OpenApi File 
+       uses: actions/upload-artifact@v3
+       with:
+         name: Combined_OpenApi_File
+         path: openapi.yaml
+       
+     - name: Generate HTML Documentation
+       run: redoc-cli bundle $GITHUB_WORKSPACE/openapi.yaml -o out/openapi.html
+       
+     - name: Generate OpenApi JSON File
+       run: npx @redocly/openapi-cli bundle --output out/openapi.json --ext json $GITHUB_WORKSPACE/openapi.yaml
+       
+     - name: Move OpenApi YAML File to 'out' Folder
+       run: npx @redocly/openapi-cli bundle --output out/openapi.yaml --ext yaml $GITHUB_WORKSPACE/openapi.yaml
+       
+     - name: Set PR Number  
+       run: echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+       
+    #  - name: Upload OpenApi HTML,JSON and YAML files to azure
+    #    id: azure_blob
+    #    uses: bacongobbler/azure-blob-storage-upload@v1.2.0
+    #    with:
+    #       source_dir: 'out'
+    #       container_name: '$web'
+    #       connection_string: ${{ secrets.MH_DEV_WEB_STORAGE_ACCESS_KEY }}
+    #       extra_args: "--destination-path docs/api/pr/${{env.PR_NUMBER}} --overwrite true"
+    #       sync: true
+  
+     - name: Set Document URL for a PR
+       run: echo "Document_URL=${{ secrets.AZURE_BLOB_STATIC_WEBSITE }}docs/api/pr/${{env.PR_NUMBER}}" >> $GITHUB_ENV
+       
+     - name: Comment PR with Published API Document
+       uses: thollander/actions-comment-pull-request@1.0.1
+       with:
+          message: 'Check [published HTML api documentation](${{env.Document_URL}}/openapi.html), [published openapi JSON file](${{env.Document_URL}}/openapi.json), [published openapi YAML file](${{env.Document_URL}}/openapi.yaml) for the PR-${{env.PR_NUMBER}}'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
