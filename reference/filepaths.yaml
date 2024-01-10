@@ -2,5 +2,7 @@
 filepaths:
   openAPI:
     reference/service/amion_Interface/amionInterface.yaml
+    reference/service/amion_Interface/drm.yaml
   bundledOpenAPI:
     dist/amionInterface.yaml
+    dist/drm.yaml
