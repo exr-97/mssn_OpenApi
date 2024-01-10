@@ -26,7 +26,8 @@ jobs:
         
       - name: Validate OpenAPI yaml files in the repo
         id: run_spectral
-        run: spectral lint ./reference/**/*.{yaml,yml}
+        run: spectral lint ./reference/**/*.{yaml,yml} --ruleset spectral.yaml
+
 
   Publish_Documents:
    name: Publish Documents
