@@ -71,8 +71,11 @@ jobs:
       - name: Bundle OpenApi Files
         run: npx @redocly/openapi-cli bundle --output dist --ext yaml ${{env.OpenAPI_File_Paths}}
 
+      # - name: Join OpenApi Files
+      #   run: npx @redocly/openapi-cli join ${{env.Bundled_OpenAPI_File_Paths}}
       - name: Join OpenApi Files
-        run: npx @redocly/openapi-cli join ${{env.Bundled_OpenAPI_File_Paths}}
+        run:  echo "OpenAPI_File_Paths=${{env.OpenAPI_File_Paths}}"
+          npx @redocly/cli bundle@0.10.3 --output dist --ext yaml ${{env.Bundled_OpenAPI_File_Paths}}
 
         # - name: Upload Combined OpenApi File
         #   uses: actions/upload-artifact@v3
