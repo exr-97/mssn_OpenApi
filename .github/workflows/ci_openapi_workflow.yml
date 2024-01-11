@@ -4,7 +4,7 @@ name: CI for OpenApi
 on:
   pull_request:
 #    branches: openApi-setup
-  branches: [ main ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
