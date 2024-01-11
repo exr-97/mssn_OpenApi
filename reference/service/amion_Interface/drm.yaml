@@ -36,6 +36,36 @@ paths:
                     success: true
                     statusCode: 204
                     message: 'No shift records were found from amion, So Unassigned all previous shifts assignments'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  statusCode:
+                    type: number
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - success
+                  - statusCode
+                  - message
+                x-examples:
+                  example-1:
+                    success: false
+                    statusCode: 417
+                    message: Failed to process Dynamic role user assignment operation
+              examples:
+                example-1:
+                  value:
+                    success: false
+                    statusCode: 500
+                    message: Internal server Error
       description: An Endpoint which is called by Amion Interface for scheduling the shifts by amion
       requestBody:
         content:
@@ -43,31 +73,12 @@ paths:
             schema:
               description: ''
               type: object
-              x-examples:
-                example-1:
-                  source: string
-                  wctpChannelURI: string
-                  batch: 0
-                  shiftRecordsFromAmion:
-                    - userName: string
-                      shiftStart: string
-                      shiftEnd: string
-                      uniqueID: string
-                      dynamicRoleUniqueID: 0
-                      primaryContact: string
-                    - userName: string
-                      shiftStart: string
-                      shiftEnd: string
-                      uniqueID: string
-                      dynamicRoleUniqueID: 0
-                      primaryContact: string
               properties:
                 source:
                   type: string
                   minLength: 1
                 wctpChannelURI:
                   type: string
-                  minLength: 1
                 batch:
                   type: number
                 shiftRecordsFromAmion:
@@ -75,7 +86,13 @@ paths:
                   uniqueItems: true
                   minItems: 1
                   items:
-                    type: object
+                    required:
+                      - userName
+                      - shiftStart
+                      - shiftEnd
+                      - uniqueID
+                      - dynamicRoleUniqueID
+                      - primaryContact
                     properties:
                       userName:
                         type: string
@@ -94,19 +111,36 @@ paths:
                       primaryContact:
                         type: string
                         minLength: 1
-                    required:
-                      - userName
-                      - shiftStart
-                      - shiftEnd
-                      - uniqueID
-                      - dynamicRoleUniqueID
-                      - primaryContact
               required:
                 - source
                 - wctpChannelURI
                 - batch
                 - shiftRecordsFromAmion
-            examples: {}
+              x-examples:
+                example-1:
+                  source: Amion
+                  wctpChannelURI: ''
+                  batch: 4
+                  shiftRecordsFromAmion:
+                    - userName: roshan
+                      shiftStart: 01-11-24T1200Z
+                      shiftEnd: 01-11-24T1310Z
+                      uniqueID: roshan
+                      dynamicRoleUniqueID: 11
+                      primaryContact: '8765456789'
+            examples:
+              example-1:
+                value:
+                  source: string
+                  wctpChannelURI: string
+                  batch: 0
+                  shiftRecordsFromAmion:
+                    - userName: string
+                      shiftStart: string
+                      shiftEnd: string
+                      uniqueID: string
+                      dynamicRoleUniqueID: 0
+                      primaryContact: string
         description: ''
       security: []
     parameters: []
