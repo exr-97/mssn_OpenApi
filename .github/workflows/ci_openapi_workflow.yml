@@ -97,13 +97,13 @@ jobs:
           path: dist.yaml  # Adjust the path based on the actual location of the file
 
       - name: Generate HTML Documentation
-        run: npx @redocly/cli build-docs $GITHUB_WORKSPACE/openapi.yaml -o out/openapi.html
+        run: npx @redocly/cli build-docs $GITHUB_WORKSPACE/dist.yaml -o out/dist.html
 
       - name: Generate OpenApi JSON File
-        run: npx @redocly/openapi-cli bundle --output out/openapi.json --ext json $GITHUB_WORKSPACE/openapi.yaml
+        run: npx @redocly/openapi-cli bundle --output out/dist.json --ext json $GITHUB_WORKSPACE/dist.yaml
 
       - name: Move OpenApi YAML File to 'out' Folder
-        run: npx @redocly/openapi-cli bundle --output out/openapi.yaml --ext yaml $GITHUB_WORKSPACE/openapi.yaml
+        run: npx @redocly/openapi-cli bundle --output out/dist.yaml --ext yaml $GITHUB_WORKSPACE/dist.yaml
 
       - name: Set PR Number
         run: echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
@@ -124,5 +124,5 @@ jobs:
       - name: Comment PR with Published API Document
         uses: thollander/actions-comment-pull-request@1.0.1
         with:
-          message: 'Check [published HTML api documentation](${{env.Document_URL}}/openapi.html), [published openapi JSON file](${{env.Document_URL}}/openapi.json), [published openapi YAML file](${{env.Document_URL}}/openapi.yaml) for the PR-${{env.PR_NUMBER}}'
+          message: 'Check [published HTML api documentation](dist.html), [published openapi JSON file](dist.json), [published openapi YAML file](${{env.Document_URL}}/openapi.yaml) for the PR-${{env.PR_NUMBER}}'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
