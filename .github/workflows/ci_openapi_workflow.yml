@@ -74,15 +74,23 @@ jobs:
      - name: Join OpenApi Files
        run: npx @redocly/openapi-cli join ${{env.Bundled_OpenAPI_File_Paths}}
        
+     # - name: Upload Combined OpenApi File 
+     #   uses: actions/upload-artifact@v3
+     #   with:
+     #     name: Combined_OpenApi_File
+     #     path: openapi.yaml
+       
+     # - name: Generate HTML Documentation
+     #   run: redoc-cli bundle $GITHUB_WORKSPACE/openapi.yaml -o out/openapi.html
      - name: Upload Combined OpenApi File 
        uses: actions/upload-artifact@v3
        with:
-         name: Combined_OpenApi_File
-         path: openapi.yaml
-       
+        name: Combined_OpenApi_File
+        path: dist/openapi.yaml  # Adjust the path based on the actual location of the file
+     
      - name: Generate HTML Documentation
-       run: redoc-cli bundle $GITHUB_WORKSPACE/openapi.yaml -o out/openapi.html
-       
+       run: npx @redocly/cli build-docs $GITHUB_WORKSPACE/dist/openapi.yaml -o out/openapi.html
+
      - name: Generate OpenApi JSON File
        run: npx @redocly/openapi-cli bundle --output out/openapi.json --ext json $GITHUB_WORKSPACE/openapi.yaml
        
