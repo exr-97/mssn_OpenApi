@@ -124,5 +124,5 @@ jobs:
       - name: Comment PR with Published API Document
         uses: thollander/actions-comment-pull-request@1.0.1
         with:
-          message: 'Check [published HTML api documentation](dist.html), [published openapi JSON file](dist.json), [published openapi YAML file](${{env.Document_URL}}/openapi.yaml) for the PR-${{env.PR_NUMBER}}'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+          message: 'Check [published HTML api documentation](dist.html), [published openapi JSON file](dist.json), [published openapi YAML file](dist.yaml) for the PR-${{env.PR_NUMBER}}'
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
