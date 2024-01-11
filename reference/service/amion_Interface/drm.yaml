@@ -144,6 +144,74 @@ paths:
         description: ''
       security: []
     parameters: []
+    get:
+      summary: ''
+      operationId: getDynamicRoleManager_RestServices-22.1.1.12-dynamicRoleToUserAssignmentServices-service-upload
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                source:
+                  type: string
+                  minLength: 1
+                wctpChannelURI:
+                  type: string
+                  minLength: 1
+                batch:
+                  type: number
+                shiftRecordsFromAmion:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - userName
+                      - shiftStart
+                      - shiftEnd
+                      - uniqueID
+                      - dynamicRoleUniqueID
+                      - primaryContact
+                    properties:
+                      userName:
+                        type: string
+                        minLength: 1
+                      shiftStart:
+                        type: string
+                        minLength: 1
+                      shiftEnd:
+                        type: string
+                        minLength: 1
+                      uniqueID:
+                        type: string
+                        minLength: 1
+                      dynamicRoleUniqueID:
+                        type: number
+                      primaryContact:
+                        type: string
+                        minLength: 1
+              required:
+                - source
+                - wctpChannelURI
+                - batch
+                - shiftRecordsFromAmion
+              x-examples:
+                example-1:
+                  source: string
+                  wctpChannelURI: string
+                  batch: 0
+                  shiftRecordsFromAmion:
+                    - userName: string
+                      shiftStart: string
+                      shiftEnd: string
+                      uniqueID: string
+                      dynamicRoleUniqueID: 0
+                      primaryContact: string
 components:
   schemas:
     User:
