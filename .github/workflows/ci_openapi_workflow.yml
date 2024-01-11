@@ -102,8 +102,8 @@ jobs:
     #       extra_args: "--destination-path docs/api/pr/${{env.PR_NUMBER}} --overwrite true"
     #       sync: true
   
-     - name: Set Document URL for a PR
-       run: echo "Document_URL=${{ secrets.AZURE_BLOB_STATIC_WEBSITE }}docs/api/pr/${{env.PR_NUMBER}}" >> $GITHUB_ENV
+    #  - name: Set Document URL for a PR
+    #    run: echo "Document_URL=${{ secrets.AZURE_BLOB_STATIC_WEBSITE }}docs/api/pr/${{env.PR_NUMBER}}" >> $GITHUB_ENV
        
      - name: Comment PR with Published API Document
        uses: thollander/actions-comment-pull-request@1.0.1
