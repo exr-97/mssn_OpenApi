@@ -68,9 +68,6 @@ jobs:
       - name: Install redoc-cli
         run: npm install -g redoc-cli
 
-      # - name: Bundle OpenApi Files
-      #   run: npx @redocly/openapi-cli bundle --output dist --ext yaml ${{env.OpenAPI_File_Paths}}
-
       # - name: Join OpenApi Files
       #   run: npx @redocly/openapi-cli join ${{env.Bundled_OpenAPI_File_Paths}}
       # - name: Join OpenApi Files
@@ -78,9 +75,13 @@ jobs:
       #     npx @redocly/cli bundle@0.10.3 --output dist --ext yaml ${{env.Bundled_OpenAPI_File_Paths}}
       - name: Bundle OpenApi Files     
         run: npx @redocly/openapi-cli bundle --output dist --ext yaml ${{env.OpenAPI_File_Paths}}
-       
+
       - name: Join OpenApi Files
-        run: npx @redocly/openapi-cli bundle dist/amionInterface.yaml
+        run:  echo "OpenAPI_File_Paths=${{env.OpenAPI_File_Paths}}"
+          npx @redocly/cli bundle@0.10.3 --output dist --ext yaml ${{env.Bundled_OpenAPI_File_Paths}}
+       
+      # - name: Join OpenApi Files
+      #   run: npx @redocly/openapi-cli bundle dist/amionInterface.yaml
         # - name: Upload Combined OpenApi File
         #   uses: actions/upload-artifact@v3
         #   with:
@@ -93,7 +94,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Combined_OpenApi_File
-          path: openapi.yaml  # Adjust the path based on the actual location of the file
+          path: dist.yaml  # Adjust the path based on the actual location of the file
 
       - name: Generate HTML Documentation
         run: npx @redocly/cli build-docs $GITHUB_WORKSPACE/openapi.yaml -o out/openapi.html
