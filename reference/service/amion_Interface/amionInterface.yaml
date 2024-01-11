@@ -4,7 +4,7 @@ info:
   version: '1.0'
   description: Vega Server
 servers:
-  - url: 'https://qaha-vega-a1.mhqa.local:8443/'
+  - url: 'https://qaha-vega-a1.mhqa.local:8440/'
     description: Vega
 paths:
   DynamicRoleManager_RestServices-22.1.1.12/dynamicRoleToUserAssignmentServices/service/upload:
