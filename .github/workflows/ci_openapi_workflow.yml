@@ -73,56 +73,71 @@ jobs:
       # - name: Join OpenApi Files
       #   run:  echo "OpenAPI_File_Paths=${{env.OpenAPI_File_Paths}}"
       #     npx @redocly/cli bundle@0.10.3 --output dist --ext yaml ${{env.Bundled_OpenAPI_File_Paths}}
-      - name: Bundle OpenApi Files     
-        run: npx @redocly/openapi-cli bundle --output dist --ext yaml ${{env.OpenAPI_File_Paths}}
+      # - name: Bundle OpenApi Files     
+      #   run: npx @redocly/openapi-cli bundle --output dist --ext yaml ${{env.OpenAPI_File_Paths}}
 
-      - name: Join OpenApi Files
-        run:  echo "OpenAPI_File_Paths=${{env.OpenAPI_File_Paths}}"
-          npx @redocly/cli bundle@0.10.3 --output dist --ext yaml ${{env.Bundled_OpenAPI_File_Paths}}
-       
       # - name: Join OpenApi Files
-      #   run: npx @redocly/openapi-cli bundle dist/amionInterface.yaml
-        # - name: Upload Combined OpenApi File
-        #   uses: actions/upload-artifact@v3
-        #   with:
-        #     name: Combined_OpenApi_File
-        #     path: openapi.yaml
+      #   run:  echo "OpenAPI_File_Paths=${{env.OpenAPI_File_Paths}}"
+      #     npx @redocly/cli bundle@0.10.3 --output dist --ext yaml ${{env.Bundled_OpenAPI_File_Paths}}
+       
+      # # - name: Join OpenApi Files
+      # #   run: npx @redocly/openapi-cli bundle dist/amionInterface.yaml
+      #   # - name: Upload Combined OpenApi File
+      #   #   uses: actions/upload-artifact@v3
+      #   #   with:
+      #   #     name: Combined_OpenApi_File
+      #   #     path: openapi.yaml
+
+      # # - name: Generate HTML Documentation
+      # #   run: redoc-cli bundle $GITHUB_WORKSPACE/openapi.yaml -o out/openapi.html
+      # - name: Upload Combined OpenApi File
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: Combined_OpenApi_File
+      #     path: dist.yaml  # Adjust the path based on the actual location of the file
 
       # - name: Generate HTML Documentation
-      #   run: redoc-cli bundle $GITHUB_WORKSPACE/openapi.yaml -o out/openapi.html
-      - name: Upload Combined OpenApi File
-        uses: actions/upload-artifact@v3
-        with:
-          name: Combined_OpenApi_File
-          path: dist.yaml  # Adjust the path based on the actual location of the file
+      #   run: npx @redocly/cli build-docs $GITHUB_WORKSPACE/dist.yaml -o out/dist.html
+
+      # - name: Generate OpenApi JSON File
+      #   run: npx @redocly/openapi-cli bundle --output out/dist.json --ext json $GITHUB_WORKSPACE/dist.yaml
+
+      # - name: Move OpenApi YAML File to 'out' Folder
+      #   run: npx @redocly/openapi-cli bundle --output out/dist.yaml --ext yaml $GITHUB_WORKSPACE/dist.yaml
+
+      # - name: Set PR Number
+      #   run: echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+
+      # # - name: Upload OpenApi HTML,JSON and YAML files to azure
+      # #   id: azure_blob
+      # #   uses: bacongobbler/azure-blob-storage-upload@v1.2.0
+      # #   with:
+      # #     source_dir: 'out'
+      # #     container_name: '$web'
+      # #     connection_string: ${{ secrets.MH_DEV_WEB_STORAGE_ACCESS_KEY }}
+      # #     extra_args: "--destination-path docs/api/pr/${{env.PR_NUMBER}} --overwrite true"
+      # #     sync: true
+
+      # # - name: Set Document URL for a PR
+      # #   run: echo "Document_URL=${{ secrets.AZURE_BLOB_STATIC_WEBSITE }}docs/api/pr/${{env.PR_NUMBER}}" >> $GITHUB_ENV
+
+      # - name: Comment PR with Published API Document
+      #   uses: thollander/actions-comment-pull-request@1.0.1
+      #   with:
+      #     message: 'Check [published HTML api documentation](dist.html), [published openapi JSON file](dist.json), [published openapi YAML file](dist.yaml) for the PR-${{env.PR_NUMBER}}'
+      #     # message: 'Check [published HTML api documentation](out/openapi.html), [published openapi JSON file](out/openapi.json), [published openapi YAML file](out/openapi.yaml) for the PR-${{env.PR_NUMBER}}'
+      #     # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+      - name: Bundle OpenApi Files
+        run: npx @redocly/openapi-cli bundle --output dist --ext yaml ${{env.OpenAPI_File_Paths}}
 
       - name: Generate HTML Documentation
-        run: npx @redocly/cli build-docs $GITHUB_WORKSPACE/dist.yaml -o out/dist.html
-
-      - name: Generate OpenApi JSON File
-        run: npx @redocly/openapi-cli bundle --output out/dist.json --ext json $GITHUB_WORKSPACE/dist.yaml
-
-      - name: Move OpenApi YAML File to 'out' Folder
-        run: npx @redocly/openapi-cli bundle --output out/dist.yaml --ext yaml $GITHUB_WORKSPACE/dist.yaml
+        run: npx @redocly/cli build-docs $GITHUB_WORKSPACE/dist --output out
 
       - name: Set PR Number
         run: echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
 
-        #  - name: Upload OpenApi HTML,JSON and YAML files to azure
-        #    id: azure_blob
-        #    uses: bacongobbler/azure-blob-storage-upload@v1.2.0
-        #    with:
-        #       source_dir: 'out'
-        #       container_name: '$web'
-        #       connection_string: ${{ secrets.MH_DEV_WEB_STORAGE_ACCESS_KEY }}
-        #       extra_args: "--destination-path docs/api/pr/${{env.PR_NUMBER}} --overwrite true"
-        #       sync: true
-
-        #  - name: Set Document URL for a PR
-        #    run: echo "Document_URL=${{ secrets.AZURE_BLOB_STATIC_WEBSITE }}docs/api/pr/${{env.PR_NUMBER}}" >> $GITHUB_ENV
-
       - name: Comment PR with Published API Document
         uses: thollander/actions-comment-pull-request@1.0.1
         with:
-          message: 'Check [published HTML api documentation](dist.html), [published openapi JSON file](dist.json), [published openapi YAML file](dist.yaml) for the PR-${{env.PR_NUMBER}}'
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+          message: 'Check [published HTML api documentation](out/openapi.html), [published openapi JSON file](out/openapi.json), [published openapi YAML file](out/openapi.yaml) for the PR-${{env.PR_NUMBER}}'
+          
