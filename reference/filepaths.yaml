@@ -6,3 +6,4 @@ filepaths:
   bundledOpenAPI:
     dist/amionInterface.yaml
     dist/drm.yaml
+
