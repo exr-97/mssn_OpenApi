@@ -142,4 +142,4 @@ jobs:
               body: comment,
             });
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}
