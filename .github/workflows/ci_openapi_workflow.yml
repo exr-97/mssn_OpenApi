@@ -127,17 +127,11 @@ jobs:
       #     # message: 'Check [published HTML api documentation](out/dist.html), [published openapi JSON file](out/dist.json), [published openapi YAML file](out/openapi.yaml) for the PR-${{env.PR_NUMBER}}'
       #     message: 'Check [published HTML API documentation](out/dist.html) for the PR-${{env.PR_NUMBER}}'
       #     GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}  
-      - name: Run Comment Bot
-        uses: actions/github-script@v7
+      - name: Comment PR with Published API Document
+        uses: thollander/actions-comment-pull-request@1.0.1
         with:
-          script: |
-            const comment = '👋 Thanks for reporting!';
-            github.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.issue.number,
-              body: comment
-            });
+          message: '👋 Thanks for reporting!'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
 
 
