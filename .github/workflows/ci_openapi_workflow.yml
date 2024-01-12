@@ -131,15 +131,13 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const { context, github } = require('@actions/github');
-
-            const comment = 'Check published HTML API documentation, published OpenAPI JSON file, published OpenAPI YAML file for PR-' + context.payload.pull_request.number;
-
+            const comment = 'Check published HTML API documentation, published OpenAPI JSON file, published OpenAPI YAML file for PR-' + github.context.payload.pull_request.number;
+      
             github.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
+              owner: github.context.repo.owner,
+              repo: github.context.repo.repo,
+              issue_number: github.context.payload.pull_request.number,
               body: comment,
             });
-        env:
           GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}
+
