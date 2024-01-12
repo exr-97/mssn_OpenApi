@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1712554-a7cb-4c11-b63b-f7210ce64ab7" name="Changes" comment="2nd commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="d1712554-a7cb-4c11-b63b-f7210ce64ab7" name="Changes" comment="3nd commit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,6 +74,7 @@
       <workItem from="1704967017652" duration="242000" />
       <workItem from="1704967272914" duration="43000" />
       <workItem from="1704967538629" duration="10000" />
+      <workItem from="1704967556143" duration="1561000" />
     </task>
     <task id="LOCAL-00001" summary="git push">
       <option name="closed" value="true" />
@@ -109,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704967124912</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="3nd commit">
+      <option name="closed" value="true" />
+      <created>1704967567558</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1704967567558</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +128,7 @@
     <MESSAGE value="main push" />
     <MESSAGE value="1st commit" />
     <MESSAGE value="2nd commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="2nd commit" />
+    <MESSAGE value="3nd commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="3nd commit" />
   </component>
 </project>
