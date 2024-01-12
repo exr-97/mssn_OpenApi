@@ -128,7 +128,7 @@ jobs:
       #     message: 'Check [published HTML API documentation](out/dist.html) for the PR-${{env.PR_NUMBER}}'
       #     GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}  
       - name: Run Comment Bot
-      - uses: actions/github-script@v7
+        uses: actions/github-script@v7
         with:
           script: |
             github.rest.issues.createComment({
