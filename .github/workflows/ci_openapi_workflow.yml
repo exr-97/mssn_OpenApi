@@ -131,13 +131,19 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const comment = 'Check published HTML API documentation, published OpenAPI JSON file, published OpenAPI YAML file for PR-' + github.context.payload.pull_request.number;
+            const comment = 'Check published HTML API documentation, published OpenAPI JSON file, published OpenAPI YAML file for PR-' + github.event.pull_request.number;
       
-            github.issues.createComment({
-              owner: github.context.repo.owner,
-              repo: github.context.repo.repo,
-              issue_number: github.context.payload.pull_request.number,
-              body: comment,
-            });
-          GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}
+            if (github.event.pull_request) {
+              github.issues.createComment({
+                owner: github.context.repo.owner,
+                repo: github.context.repo.repo,
+                issue_number: github.event.pull_request.number,
+                body: comment,
+              });
+            } else {
+              console.error('Unable to retrieve pull request information from the event.');
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
