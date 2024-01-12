@@ -64,6 +64,14 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Run Octokit Example
+        run: |
+          const { Octokit } = require("@octokit/rest");
+
+          const octokit = new Octokit({
+            auth: "${{ secrets.MSSN_GITHUB_TOKEN }}", // Use the GitHub token as a secret
+          });
+
       - name: Install redoc-cli
         run: npm install -g redoc-cli
 
