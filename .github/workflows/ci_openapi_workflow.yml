@@ -126,12 +126,16 @@ jobs:
       #     # message: 'Check [published HTML api documentation](dist.html), [published openapi JSON file](dist.json), [published openapi YAML file](dist.yaml) for the PR-${{env.PR_NUMBER}}'
       #     # message: 'Check [published HTML api documentation](out/dist.html), [published openapi JSON file](out/dist.json), [published openapi YAML file](out/openapi.yaml) for the PR-${{env.PR_NUMBER}}'
       #     message: 'Check [published HTML API documentation](out/dist.html) for the PR-${{env.PR_NUMBER}}'
-      #     GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}  
+      #     GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}
+      - name: Set HTML Document URL
+        id: set_html_url
+        run: echo "HTML_URL=https://github.com/${{ github.repository }}/blob/${{ github.sha }}/out/dist.html" >> $GITHUB_ENV
+      
       - name: Comment on PR
         uses: actions-ecosystem/action-create-comment@v1
         with:
           issue-number: ${{ github.event.issue.number }}
-          body: 'Run by ${{ github.actor }} Check [published HTML API documentation] (dist.html) for the PR-${{github.event.pull_request.number}}'
+          body: 'Run by ${{ github.actor }} Check [published HTML API documentation] ($HTML_URL) for the PR-${{github.event.pull_request.number}}'
           github_token: ${{ secrets.MSSN_GITHUB_TOKEN }}
 
 
