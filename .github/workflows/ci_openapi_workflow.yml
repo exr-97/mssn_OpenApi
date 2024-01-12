@@ -133,10 +133,10 @@ jobs:
           script: |
             const comment = '👋 Thanks for reporting!';
             github.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: context.payload.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: comment,
+              body: comment
             });
 
 
