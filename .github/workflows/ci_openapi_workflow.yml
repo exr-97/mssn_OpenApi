@@ -42,7 +42,6 @@ jobs:
 
       - name: Read OpenAPI File Paths
         id: read_openAPI_file_paths
-
         run: |
           ls
           echo "files=$(./yq e '.filepaths.openAPI' $GITHUB_WORKSPACE/reference/filepaths.yaml| xargs)" >> $GITHUB_OUTPUT
@@ -135,5 +134,5 @@ jobs:
         uses: actions-ecosystem/action-create-comment@v1
         with:
           issue-number: ${{ github.event.issue.number }}
-          body: 'Run by ${{ github.actor }} Check [published HTML API documentation](${{HTML_URL}}/dist.yaml) for the PR-${{github.event.issue.number}}'
+          body: 'Run by ${{ github.actor }} Check [published HTML API documentation](${{env.HTML_URL}}/dist.yaml) for the PR-${{github.event.issue.number}}'
           github_token: ${{ secrets.MSSN_GITHUB_TOKEN }}
