@@ -120,10 +120,26 @@ jobs:
       # - name: Set Document URL for a PR
       #   run: echo "Document_URL=${{ secrets.AZURE_BLOB_STATIC_WEBSITE }}docs/api/pr/${{env.PR_NUMBER}}" >> $GITHUB_ENV
 
-      - name: Comment PR with Published API Document
-        uses: thollander/actions-comment-pull-request@1.0.1
+      # - name: Comment PR with Published API Document
+      #   uses: thollander/actions-comment-pull-request@1.0.1
+      #   with:
+      #     # message: 'Check [published HTML api documentation](dist.html), [published openapi JSON file](dist.json), [published openapi YAML file](dist.yaml) for the PR-${{env.PR_NUMBER}}'
+      #     # message: 'Check [published HTML api documentation](out/dist.html), [published openapi JSON file](out/dist.json), [published openapi YAML file](out/openapi.yaml) for the PR-${{env.PR_NUMBER}}'
+      #     message: 'Check [published HTML API documentation](out/dist.html) for the PR-${{env.PR_NUMBER}}'
+      #     GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}  
+      - name: Run Comment Bot
+        uses: actions/github-script@v5
         with:
-          # message: 'Check [published HTML api documentation](dist.html), [published openapi JSON file](dist.json), [published openapi YAML file](dist.yaml) for the PR-${{env.PR_NUMBER}}'
-          # message: 'Check [published HTML api documentation](out/dist.html), [published openapi JSON file](out/dist.json), [published openapi YAML file](out/openapi.yaml) for the PR-${{env.PR_NUMBER}}'
-          message: 'Check [published HTML API documentation](out/dist.html) for the PR-${{env.PR_NUMBER}}'
-          GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}  
+          script: |
+            const { context, github } = require('@actions/github');
+
+            const comment = 'Check published HTML API documentation, published OpenAPI JSON file, published OpenAPI YAML file for PR-' + context.payload.pull_request.number;
+
+            github.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: comment,
+            });
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
