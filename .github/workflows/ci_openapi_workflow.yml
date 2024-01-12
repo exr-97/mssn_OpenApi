@@ -145,5 +145,5 @@ jobs:
         uses: actions-ecosystem/action-create-comment@v1
         with:
           issue-number: ${{ github.event.issue.number }}
-          body: 'Run by ${{ github.actor }} Check [published HTML API documentation](${{env.HTML_URL}}) for the PR-${{env.PR_NUMBER}}'
+          body: 'Run by ${{ github.actor }} Check [published HTML API documentation](${{env.HTML_URL}}) for the PR-${{env.PR_NUMBER}}. To download the HTML file, click [here](https://github.com/${{ github.repository }}/raw/${{ github.sha }}/out/dist.html).'
           github_token: ${{ secrets.MSSN_GITHUB_TOKEN }}
