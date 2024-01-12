@@ -128,19 +128,15 @@ jobs:
       #     message: 'Check [published HTML API documentation](out/dist.html) for the PR-${{env.PR_NUMBER}}'
       #     GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}  
       - name: Run Comment Bot
-        uses: actions/github-script@v5
+      - uses: actions/github-script@v7
         with:
           script: |
-            const comment = 'Check published HTML API documentation, published OpenAPI JSON file, published OpenAPI YAML file for PR-' + context.issue.number;
-      
-            github.issues.createComment({
-              owner: github.context.repo.owner,
-              repo: github.context.repo.repo,
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
-              body: comment,
-            });
-        env:
-          GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 Thanks for reporting!'
+            })
 
 
 
