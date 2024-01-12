@@ -133,7 +133,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body: '👋 Thanks for reporting!'
         env:
-          github_token: ${{ secrets.MSSN_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MSSN_GITHUB_TOKEN }}
 
 
 
