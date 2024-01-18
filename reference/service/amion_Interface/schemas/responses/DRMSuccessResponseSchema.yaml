@@ -1,0 +1,9 @@
+title: DRMSuccessResponseSchema
+type: object
+properties:
+  success:
+    type: boolean
+  statusCode:
+    type: int
+  message:
+    type: string

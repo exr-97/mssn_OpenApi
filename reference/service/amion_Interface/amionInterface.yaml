@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: amionInterfcae
+  version: '1.0'
+  description: Vega Server
+servers:
+  - url: 'https://qaha-vega-a1.mhqa.local:8443'
+    description: Vega
+paths:
+  /DynamicRoleManager_RestServices-22.1.1.12/dynamicRoleToUserAssignmentServices/service/upload:
+    post:
+      summary: Create list of action commands for InterApp Inbound Request.
+      operationId: post-DRM
+      tags:
+        - Dynamic
+      responses:
+        '200':
+          $ref: '#/components/responses/drmSuccessResponse'
+      parameters: []
+      description: Interprets request and create build Commands for Banayan App to be executed.It validates partner infromation and provided paramters in url to generate action Commands.
+      requestBody:
+        $ref: '#/components/requestBodies/drmRequest'
+      security:
+        - BasicAuth: []
+components:
+  requestBodies:
+    drmRequest:
+      content:
+        application/json:
+          schema:
+            $ref: schemas/request/DynamicRoleManager_RestServicesRequest.yaml
+          examples:
+            Screen Names Update:
+              $ref: examples/request/DRMRequestExample.yaml#/postDRMRequestEaxample
+  responses:
+    drmSuccessResponse:
+      description: Dynamic Role Manager Success Response
+      content:
+        application/json:
+          schema:
+            $ref: schemas/responses/DRMSuccessResponseWithErrorsSchema.yaml
+          examples:
+            DRM Success Response:
+              $ref: examples/response/DRMResponseExample.yaml#/postDRMSuccessResponseExample
+            DRM Success No Shift Records Response:
+              $ref: examples/response/DRMResponseExample.yaml#/postDRMSuccessNoRecordsResponseExample
+            DRM Failed Response:
+              $ref: examples/response/DRMResponseExample.yaml#/postDRMFailedResponseExample
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic

@@ -1,0 +1,15 @@
+title: DRMRequestExample
+type: object
+postDRMRequestEaxample:
+  value:
+    source: Amion
+    wctpChannelURI: https://davqas-c962.mhqa.pub:8443/heartbeat/wctp/SHC_WCTP_Channel
+    batch: 6
+    shiftRecordsFromAmion:
+      - userName: dev
+        shiftStart: 01-16-24T1145Z
+        shiftEnd: 01-16-24T1220Z
+        uniqueID: dev
+        dynamicRoleUniqueID: 5
+        primaryContact: '8765456789'
+  

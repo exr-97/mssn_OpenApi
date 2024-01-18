@@ -1,0 +1,32 @@
+title: DRMResponseExample
+type: object
+postDRMSuccessResponseExample:
+  value:
+    success: true
+    statusCode: 200
+    message: Successfully processed 1/1 records for Dynamic role user assignment operation
+
+postDRMSuccessNoRecordsResponseExample:
+  value:
+    success: true
+    statusCode: 204
+    message: No shift records were found from amion, So Unassigned all previous shifts assignments
+
+postDRMFailedResponseExample:
+  value:
+    statusCode: 417
+    message: Failed to process Dynamic role user assignment operation
+    errors:
+      - recordNumber: 1
+        record: 
+          userName: dev
+          uniqueID: dev
+          dynamicRoleUniqueID: '5'
+          assignmentUniqueId: 'null'
+          assignmentName: 'null'
+          shiftStart: 01-16-24T1145Z
+          shiftEnd: 01-16-24T1220Z
+          primaryContact: '8765456789'
+        errorMessages:
+          - Scheduled Shift End Date Tue Jan 16 12:20:00 IST 2024 must be greater than the present time:Tue Jan 16 12:20:02 IST 2024
+          - Ignoring this record since the shift end time is over and also it was assigned previously by Amion
