@@ -1,0 +1,37 @@
+title: DRMSuccessResponseWithErrorsSchema
+type: object
+properties:
+  success:
+    type: boolean
+  statusCode:
+    type: integer
+  message:
+    type: string
+  errors:
+    type: array
+    items:
+      type: object
+      properties:
+        recordNumber:
+          type: integer
+        record:
+          type: object
+          properties:
+            userName:
+              type: string
+            shiftStart:
+              type: string
+            shiftEnd:
+              type: string
+            uniqueID:
+              type: string
+            dynamicRoleUniqueID:
+              type: string
+            primaryContact:
+              type: string
+            assignmentUniqueId:
+              type: string
+            assignmentName:
+              type: string
+        errorMessages:
+          type: array

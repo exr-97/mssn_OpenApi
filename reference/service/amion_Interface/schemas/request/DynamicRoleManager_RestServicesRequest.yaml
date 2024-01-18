@@ -1,0 +1,47 @@
+title: DynamicRoleManager_RestServicesRequest
+type: object
+properties:
+  source:
+    type: string
+    description: Source name 
+  wctpChannelURI:
+    type: string
+    description: a string which defines the command executed. 
+  batch:
+    type: integer
+    description: a string which defines the command executed.
+  shiftRecordsFromAmion:
+    type: array
+    items:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: a string which defines the command executed. 
+        shiftStart:
+          type: string
+          description: a string which defines the command executed. 
+        shiftEnd:
+          type: string
+          description: a string which defines the command executed. 
+        uniqueID:
+          type: string
+          description: a string which defines the command executed. 
+        dynamicRoleUniqueID:
+          type: integer
+          description: a string which defines the command executed. 
+        primaryContact:
+          type: string
+          description: a string which defines the command executed. 
+      required:
+        - userName
+        - shiftStart
+        - shiftEnd
+        - uniqueID
+        - dynamicRoleUniqueID
+        - primaryContact
+required:
+  - source
+  - wctpChannelURI
+  - batch
+  - shiftRecordsFromAmion

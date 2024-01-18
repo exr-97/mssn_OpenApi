@@ -1,0 +1,7 @@
+title: DRMResponseExample
+type: object
+postDRMSuccessResponseExample:
+  value:
+    success: true
+    statusCode: 200
+    message: Successfully processed 1/1 records for Dynamic role user assignment operation
