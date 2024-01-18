@@ -6,10 +6,10 @@ properties:
     description: Source name 
   wctpChannelURI:
     type: string
-    description: a string which defines the command executed. 
+    description: WCTP channel Uri
   batch:
     type: integer
-    description: a string which defines the command executed.
+    description: Updated Batch number
   shiftRecordsFromAmion:
     type: array
     items:
@@ -17,22 +17,22 @@ properties:
       properties:
         userName:
           type: string
-          description: a string which defines the command executed. 
+          description: Username of the Record which is present in MH-Cure
         shiftStart:
           type: string
-          description: a string which defines the command executed. 
+          description: shiftStart of the Record 
         shiftEnd:
           type: string
-          description: a string which defines the command executed. 
+          description: shiftEnd of the Record 
         uniqueID:
           type: string
-          description: a string which defines the command executed. 
+          description: This has the unique login name of the user
         dynamicRoleUniqueID:
           type: integer
-          description: a string which defines the command executed. 
+          description: dynamicRoleUniqueID of the Record
         primaryContact:
           type: string
-          description: a string which defines the command executed. 
+          description: If the user has the primary contact number it will be provided
       required:
         - userName
         - shiftStart
