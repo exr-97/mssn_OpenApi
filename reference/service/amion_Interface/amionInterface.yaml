@@ -42,6 +42,10 @@ components:
           examples:
             DRM Success Response:
               $ref: examples/response/DRMResponseExample.yaml#/postDRMSuccessResponseExample
+            DRM Success No Shift Records Response:
+              $ref: examples/response/DRMResponseExample.yaml#/postDRMSuccessNoRecordsResponseExample
+            DRM Failed Response:
+              $ref: examples/response/DRMResponseExample.yaml#/postDRMFailedResponseExample
   securitySchemes:
     BasicAuth:
       type: http
